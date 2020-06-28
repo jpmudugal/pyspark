@@ -1,3 +1,7 @@
 learining git for good 
 
+<<<<<<< HEAD
 updated code to be compatible with spark3
+=======
+reverting now JP
+>>>>>>> spark3
