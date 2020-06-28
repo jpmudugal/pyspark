@@ -1,3 +1,1 @@
-learining git for good 
-
-reverting now JP
+Changing code to optimise and make compatible with Spark3.  Making amendments for practice.
