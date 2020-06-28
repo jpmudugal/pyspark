@@ -5,6 +5,7 @@ from pyspark.sql.functions import col, round
 spark = SparkSession.builder\
     .appName('V3 ratings counter program')\
     .master('local')\
+    .config('spark.ui.port',10345)\
     .getOrCreate()
 
 spark.sparkContext.setLogLevel("ERROR")
@@ -28,12 +29,9 @@ schema = StructType([StructField("userID",IntegerType(),True),\
 
 ratingsDF = spark.createDataFrame(lines,schema)
 
-sortedRatings = ratingsDF.coalesce(1).groupBy('rating')\
-    .count()\
-    .sort('rating')
+ratingsDF.createTempView('ratings')
 
-perRatings = sortedRatings.withColumn("%", round(col('count')*100/totalRatings,2))
+ratingSQLdf = spark.sql("select rating, count(*) as count, \
+                        round(count(*)*100/"+str(totalRatings)+",2) as percentage  from ratings group by rating order by 1")
 
-perRatings.show()
-
-#print('Time taken', round(time.time()-start,2), 'seconds.')
+ratingSQLdf.coalesce(1).show()
