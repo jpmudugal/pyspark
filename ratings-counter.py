@@ -1,11 +1,18 @@
-// Code for testing GIT
-from pyspark import SparkConf, SparkContext
+#Code for testing GIT
+#updating the code to enable spark3 code
+
+from pyspark.sql import SparkSession
 import collections
 
-conf = SparkConf().setMaster("local").setAppName("RatingsHistogram")
-sc = SparkContext(conf = conf)
+spark = SparkSession.builder\
+    .appName('Spark Program')\
+    .master("local[2]")\
+    .config("testing config only")\
+    .getOrCreate()
 
-lines = sc.textFile("file:///SparkCourse/ml-100k/u.data")
+sc = spark.sparkContext
+
+lines = sc.textFile("u.data")
 ratings = lines.map(lambda x: x.split()[2])
 result = ratings.countByValue()
 
