@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 #Code for testing GIT
 #updating the code to enable spark3 code
 
 from pyspark.sql import SparkSession
+=======
+// Code for testing GIT
+//reverting master code back to Sparrk2
+
+from pyspark import SparkConf, SparkContext
+>>>>>>> spark3
 import collections
 
 spark = SparkSession.builder\
