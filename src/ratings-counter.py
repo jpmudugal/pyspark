@@ -1,12 +1,15 @@
-// Code for testing GIT
-//This code is in new source directory
-from pyspark import SparkConf, SparkContext
+
+
+from pyspark.sql import SparkSession
 import collections
 
-conf = SparkConf().setMaster("local").setAppName("RatingsHistogram")
-sc = SparkContext(conf = conf)
+spark = SparkSession.builder\
+    .appName('Movie Ratings')\
+    .master('local[2]')\
+    .getOrCreate()
 
-lines = sc.textFile("file:///SparkCourse/ml-100k/u.data")
+lines = spark.sparkContext.textFile("../data/u.data")
+
 ratings = lines.map(lambda x: x.split()[2])
 result = ratings.countByValue()
 
