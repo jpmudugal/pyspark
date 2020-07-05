@@ -5,9 +5,7 @@ spark = SparkSession.builder.config("jars", "~/spark3/jars/mysql-connector-java-
     .config("driver-class-path", "~/spark3/jars/mysql-connector-java-5.1.49.jar")\
     .getOrCreate()
 
-#df = spark.read.jdbc(url="jdbc:mysql://localhost:3306/pyspark",\
-#                table="family_age",\
-#                properties={"user":"root","password":"prajaya123","driver":"com.mysql.jdbc.Driver"})
+
 
 movie_ratings = spark.read.load(path="../data/u.data",format="csv",header=False,sep="\t")\
     .withColumnRenamed("_c0","user_id").withColumnRenamed("_c1","item_id").withColumnRenamed("_c2","rating")
